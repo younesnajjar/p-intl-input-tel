@@ -1,8 +1,8 @@
 on:
     push:
-        branches: [ master ]
+        branches: [ master, impr-add-append-to-option ]
     pull_request:
-        branches: [ master ]
+        branches: [ master, impr-add-append-to-option ]
 
 jobs:
     build:
