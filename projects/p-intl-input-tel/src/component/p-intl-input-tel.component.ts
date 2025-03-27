@@ -1,7 +1,20 @@
 import * as lpn from 'google-libphonenumber';
 import { PhoneNumber, PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber';
 
-import { Component, EventEmitter, forwardRef, Input, OnChanges, Output, signal, SimpleChange, SimpleChanges, WritableSignal, } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    forwardRef,
+    input,
+    Input,
+    InputSignal,
+    OnChanges,
+    Output,
+    signal,
+    SimpleChange,
+    SimpleChanges,
+    WritableSignal,
+} from '@angular/core';
 import { FormControl, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 import { CountryISO } from '../model/country-iso.enum';
@@ -65,6 +78,7 @@ export class IntlInputTelComponent implements OnChanges {
     @Input() separateDialCode = false;
     // Set the language for search and display name country
     @Input() lang = 'fr';
+    appendTo: InputSignal<any | null> = input(null);
 
     @Input() set disabled(value: boolean) {
         this.setDisabledState(value)

@@ -1,7 +1,8 @@
 <div class="p-inputgroup">
     <p-dropdown class="p-inputgroup-addon" [options]="countries" [filter]="true" [filterFields]="searchCountryField" [resetFilterOnHide]="true"
                 [disabled]="phoneNumberControl.disabled" panelStyleClass="fixWidth" [class.withoutDialCode]="!separateDialCode"
-                [ngModel]="selectedCountry()" (onChange)="onCountrySelect($event.value, input)">
+                [ngModel]="selectedCountry()" (onChange)="onCountrySelect($event.value, input)"
+                [appendTo]="appendTo()">
         <ng-template pTemplate="selectedItem">
             <div class="flex align-items-center gap-2">
                 <div id="flag" [class]="selectedCountry().flagClass"></div>
