@@ -1,4 +1,4 @@
-.p-inputgroupaddon {
+.p-inputgroup-addon {
     padding: 0;
     border: none;
     flex: 0 0 8rem !important;
@@ -20,7 +20,7 @@
             border-color: #ced4da;
         }
 
-        .p-select-label {
+        .p-dropdown-label {
             padding-right: 0;
 
             .ng-star-inserted:not(.flex):not(#dialcode) {
@@ -29,13 +29,13 @@
         }
 
         p-dropdownitem:nth-last-child(1 of :has(.favorite)) {
-            .p-select-option {
+            .p-dropdown-item {
                 margin-bottom: 0.5rem;
                 border-bottom: 2px solid #ced4da;
             }
         }
 
-        .p-select-dropdown {
+        .p-dropdown-trigger {
             width: 1rem;
             padding-right: 1.5rem;
         }
@@ -44,14 +44,14 @@
             border-color: #ced4da;
         }
 
-        .p-select-filter {
+        .p-dropdown-filter {
             width: 100%;
         }
 
-        .p-select-list {
+        .p-dropdown-items {
             width: 100%;
 
-            .p-select-option-group {
+            .p-dropdown-item-group {
                 padding: 0;
 
                 &:not(:first-child) {
@@ -62,7 +62,7 @@
             }
         }
 
-        .p-select-overlay {
+        .p-dropdown-panel {
             width: 22rem;
         }
     }

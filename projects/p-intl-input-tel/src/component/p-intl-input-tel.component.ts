@@ -1,19 +1,7 @@
 import * as lpn from 'google-libphonenumber';
 import { PhoneNumber, PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber';
 
-import {
-    Component,
-    forwardRef,
-    input,
-    InputSignal,
-    OnChanges,
-    output,
-    OutputEmitterRef,
-    signal,
-    SimpleChange,
-    SimpleChanges,
-    WritableSignal,
-} from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnChanges, Output, signal, SimpleChange, SimpleChanges, WritableSignal, } from '@angular/core';
 import { FormControl, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 import { CountryISO } from '../model/country-iso.enum';
@@ -28,8 +16,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DialCodePipe } from '../pipe/dialCode.pipe';
 import { InputTextModule } from 'primeng/inputtext';
 import { FavoriteElementInjectorDirective } from '../directives/favorite-element-injector.directive';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { NativeElementInjectorDirective } from '../directives/native-element-injector.directive';
+import { FilterPipe } from '../pipe/filter.pipe';
 
 @Component({
     selector: 'p-intl-tel-input',
@@ -47,38 +35,42 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
         },
     ],
     standalone: true,
-    imports: [ DropdownModule, InputTextModule, FormsModule, ReactiveFormsModule, DialCodePipe, FavoriteElementInjectorDirective,
-        InputGroupModule, InputGroupAddonModule ]
+    imports: [ DropdownModule, InputTextModule, FormsModule, ReactiveFormsModule, DialCodePipe, FilterPipe,
+        FavoriteElementInjectorDirective, NativeElementInjectorDirective ]
 })
 export class IntlInputTelComponent implements OnChanges {
     // Custom css classes
-    cssClass: InputSignal<string> = input('');
-    favoriteCountries: InputSignal<string[] | undefined> = input();
+    @Input() cssClass = 'form-control';
+    @Input() favoriteCountries: string[] = [];
     // User option to display only some countries
-    onlyCountries: InputSignal<string[] | undefined> = input();
+    @Input() onlyCountries: string [] = [];
     // If true, the country will be set automatically if the user fill the region code
-    enableAutoCountrySelect: InputSignal<boolean> = input(true);
-    displayPlaceholder: InputSignal<boolean> = input(true);
-    customPlaceholder: InputSignal<string | undefined> = input();
-    numberFormat: InputSignal<PhoneNumberFormat> = input(PhoneNumberFormat.INTERNATIONAL);
+    @Input() enableAutoCountrySelect = true;
+    @Input() displayPlaceholder = true;
+    @Input() customPlaceholder: string;
+    @Input() numberFormat: PhoneNumberFormat = PhoneNumberFormat.INTERNATIONAL;
     // Flag to display or not the input search for countries
-    displaySearchCountry: InputSignal<boolean> = input(true);
+    @Input() displaySearchCountry = true;
     // Search country property
-    searchCountryField: InputSignal<SearchCountryField[]> = input<SearchCountryField[]>([ SearchCountryField.NAME ]);
-    searchCountryPlaceholder: InputSignal<string> = input('Search country');
-    maxLength: InputSignal<number | undefined> = input();
+    @Input() searchCountryField: SearchCountryField[] = [ SearchCountryField.NAME ];
+    @Input() searchCountryPlaceholder = 'Search Country';
+    @Input() maxLength: number;
     // User option to select by default the first item of the list, default true
-    selectFirstCountry: InputSignal<boolean> = input(true);
+    @Input() selectFirstCountry = true;
     // Allow or not the phone validation form
-    phoneValidation: InputSignal<boolean> = input(true);
+    @Input() phoneValidation = true;
     // Customize the input id
-    inputId: InputSignal<string> = input('phone');
-    selectedCountryISO: InputSignal<CountryISO | undefined> = input();
-    separateDialCode: InputSignal<boolean> = input(false);
+    @Input() inputId = 'phone';
+    @Input() selectedCountryISO: CountryISO;
+    @Input() separateDialCode = false;
     // Set the language for search and display name country
-    lang: InputSignal<string> = input('fr');
+    @Input() lang = 'fr';
 
-    readonly countryChange: OutputEmitterRef<Country> = output<Country>();
+    @Input() set disabled(value: boolean) {
+        this.setDisabledState(value)
+    }
+
+    @Output() readonly countryChange = new EventEmitter<Country>();
 
     public readonly SearchCountryField = SearchCountryField;
     public phoneUtil: PhoneNumberUtil = lpn.PhoneNumberUtil.getInstance();
@@ -114,7 +106,7 @@ export class IntlInputTelComponent implements OnChanges {
 
     public init(): void {
         this.fetchCountryData();
-        if (this.onlyCountries()?.length) this.countries = this.countries.filter((c) => this.onlyCountries()?.includes(c.iso2))
+        if( this.onlyCountries.length ) this.countries = this.countries.filter((c) => this.onlyCountries.includes(c.iso2))
         this.updateSelectedCountry();
     }
 
@@ -125,7 +117,7 @@ export class IntlInputTelComponent implements OnChanges {
         const number = LocalPhoneUtils.getParsedNumber(value, currentCountryCode);
 
         // Auto select country based on the extension (and areaCode if needed) (e.g select Canada if number starts with +1 416)
-        if (this.enableAutoCountrySelect()) {
+        if( this.enableAutoCountrySelect ){
             const countryCode = LocalPhoneUtils.getCountryIsoCode(number, number?.getCountryCode()) || currentCountryCode;
             if( countryCode && countryCode !== this.selectedCountry().iso2 ){
                 const newCountry = this.countries
@@ -200,7 +192,7 @@ export class IntlInputTelComponent implements OnChanges {
     /* --------------------------------- Helpers -------------------------------- */
 
     protected fetchCountryData(): void {
-        const regionsNames = new Intl.DisplayNames([ this.lang() ], {
+        const regionsNames = new Intl.DisplayNames([ this.lang ], {
             type: 'region',
         });
         this.countries = ALL_COUNTRIES.map(country => ({
@@ -212,11 +204,11 @@ export class IntlInputTelComponent implements OnChanges {
             htmlId: `item-${country[1].toString()}`,
             flagClass: `iti__flag iti__${country[1].toString().toLocaleLowerCase()}`,
             placeHolder: this.getPlaceholder(country[1].toString().toUpperCase()),
-            isFavorite: this.favoriteCountries()?.includes(country[1].toString()) ?? false
+            isFavorite: this.favoriteCountries.includes(country[1].toString())
         })).sort((a, b) => Number(b.isFavorite) - Number(a.isFavorite));
 
-        if (this.selectFirstCountry()) {
-            const country = this.favoriteCountries()?.length ? this.favorites[0] : this.countries[0];
+        if( this.selectFirstCountry ){
+            const country = this.favoriteCountries.length ? this.favorites[0] : this.countries[0];
             this.setSelectedCountry(country);
         }
     }
@@ -225,8 +217,8 @@ export class IntlInputTelComponent implements OnChanges {
      * Updates selectedCountry.
      */
     private updateSelectedCountry() {
-        if (!this.selectedCountryISO()) return;
-        const countrySelected = this.countries.find((c) => c.iso2.toLowerCase() === this.selectedCountryISO()?.toLowerCase())
+        if( !this.selectedCountryISO ) return;
+        const countrySelected = this.countries.find((c) => c.iso2.toLowerCase() === this.selectedCountryISO.toLowerCase())
         this.setSelectedCountry(countrySelected);
     }
 
@@ -241,10 +233,10 @@ export class IntlInputTelComponent implements OnChanges {
     }
 
     private getPlaceholder(countryCode: string): string {
-        if (!this.displayPlaceholder()) return '';
-        if (this.customPlaceholder()) return this.customPlaceholder()!;
-        const placeholder = LocalPhoneUtils.getPhoneNumberPlaceHolder(this.numberFormat(), countryCode);
-        if (this.separateDialCode() && this.numberFormat() === PhoneNumberFormat.INTERNATIONAL) return LocalPhoneUtils.getChangeData(placeholder).number || '';
+        if( !this.displayPlaceholder ) return '';
+        if( this.customPlaceholder ) return this.customPlaceholder;
+        const placeholder = LocalPhoneUtils.getPhoneNumberPlaceHolder(this.numberFormat, countryCode);
+        if( this.separateDialCode && this.numberFormat === PhoneNumberFormat.INTERNATIONAL ) return LocalPhoneUtils.getChangeData(placeholder).number || '';
         return placeholder
     }
 }
