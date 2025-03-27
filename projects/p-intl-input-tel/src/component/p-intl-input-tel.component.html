@@ -1,6 +1,6 @@
 <p-inputgroup>
     <p-inputgroup-addon class="p-0 border-none">
-        <p-select class="p-inputgroup-addon" [options]="countries" [filter]="true" [filterFields]="searchCountryField()" [resetFilterOnHide]="true"
+        <p-dropdown class="p-inputgroup-addon" [options]="countries" [filter]="true" [filterFields]="searchCountryField()" [resetFilterOnHide]="true"
                     [disabled]="phoneNumberControl.disabled" panelStyleClass="fixWidth" [class.withoutDialCode]="!separateDialCode()"
                     [filterPlaceholder]="searchCountryPlaceholder()" [ngModel]="selectedCountry()" (onChange)="onCountrySelect($event.value, input)">
             <ng-template pTemplate="selectedItem">
@@ -12,15 +12,14 @@
                 </div>
             </ng-template>
 
-            <ng-template let-country pTemplate="item">
-                <div class="flex align-items-center gap-2 w-full" [class.favorite]="country.isFavorite" favorite
-                     [favoriteItemsCounter]="favoriteCountries()?.length">
+            <ng-template let-country pTemplate="item" class="test">
+                <div class="flex align-items-center gap-2 w-full" [class.favorite]="country.isFavorite" favorite>
                     <div [class]="country.flagClass"></div>
                     <span>{{ country.name }}</span>
                     <span>{{ country.dialCode | dialCode }}</span>
                 </div>
             </ng-template>
-        </p-select>
+        </p-dropdown>
     </p-inputgroup-addon>
 
     <input pInputText #input [class]="'form-control ' + cssClass() " type="tel" [id]="inputId()" autocomplete="off" (blur)="onTouched()"
