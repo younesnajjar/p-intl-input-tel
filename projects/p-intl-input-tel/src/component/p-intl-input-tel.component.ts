@@ -46,6 +46,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
             multi: true,
         },
     ],
+    standalone: true,
     imports: [ DropdownModule, InputTextModule, FormsModule, ReactiveFormsModule, DialCodePipe, FavoriteElementInjectorDirective,
         InputGroupModule, InputGroupAddonModule ]
 })

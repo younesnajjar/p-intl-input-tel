@@ -11,15 +11,12 @@
             "schematics": {},
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:application",
+                    "builder": "@angular-devkit/build-angular:browser-esbuild",
                     "options": {
-                        "outputPath": {
-                          "base": "dist/p-intl-input-tel-app"
-                        },
+                        "outputPath": "dist/p-intl-input-tel-app",
                         "index": "src/index.html",
-                        "polyfills": [
-                          "src/polyfills.ts"
-                        ],
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.app.json",
                         "assets": [
                             "src/favicon.ico",
@@ -27,13 +24,14 @@
                         ],
                         "styles": [
                             "./node_modules/primeflex/primeflex.css",
-                            "./projects/p-intl-input-tel/src/assets/style.scss"
+                            "projects/p-intl-input-tel/src/assets/style.scss"
                         ],
+                        "vendorChunk": true,
                         "extractLicenses": false,
+                        "buildOptimizer": false,
                         "sourceMap": true,
                         "optimization": false,
-                        "namedChunks": true,
-                        "browser": "src/main.ts"
+                        "namedChunks": true
                     },
                     "configurations": {
                         "production": {
@@ -48,6 +46,8 @@
                             "sourceMap": false,
                             "namedChunks": false,
                             "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
                             "budgets": [
                                 {
                                     "type": "initial",
