@@ -1,0 +1,49 @@
+{
+  "name": "p-intl-input-tel",
+  "version": "18.0.0",
+  "peerDependencies": {
+    "@angular/common": ">= 18.x < 19.0.0",
+    "@angular/core": ">= 18.x < 19.0.0",
+    "@angular/forms": ">= 18.x < 19.0.0",
+    "google-libphonenumber": "^3.2.33",
+    "primeng": ">= 16.x < 18.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlevot/p-intl-input-tel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jlevot/p-intl-input-tel/issues"
+  },
+  "homepage": "https://github.com/jlevot/p-intl-input-tel#readme",
+  "author": {
+    "name": "jlevot",
+    "email": "levotjeanbaptiste@gmail.com"
+  },
+  "keywords": [
+    "angular",
+    "angular 17",
+    "angular 18",
+    "p-intl-input-tel",
+    "phone number",
+    "primeNG",
+    "validation"
+  ],
+  "module": "fesm2022/p-intl-input-tel.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/p-intl-input-tel.mjs",
+      "esm": "./esm2022/p-intl-input-tel.mjs",
+      "default": "./fesm2022/p-intl-input-tel.mjs"
+    }
+  },
+  "sideEffects": false
+}

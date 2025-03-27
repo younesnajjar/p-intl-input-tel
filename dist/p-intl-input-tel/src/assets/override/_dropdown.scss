@@ -1,0 +1,69 @@
+.p-inputgroup-addon {
+    padding: 0;
+    border: none;
+    flex: 0 0 8rem !important;
+
+    &.withoutDialCode {
+        flex: 0 0 5rem !important;
+    }
+
+    .p-dropdown {
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        &:not(.p-disabled).p-focus {
+            box-shadow: none;
+            border-color: #ced4da;
+        }
+
+        .p-dropdown-label {
+            padding-right: 0;
+
+            .ng-star-inserted:not(.flex):not(#dialcode) {
+                display: none !important;
+            }
+        }
+
+        p-dropdownitem:nth-last-child(1 of :has(.favorite)) {
+            .p-dropdown-item {
+                margin-bottom: 0.5rem;
+                border-bottom: 2px solid #ced4da;
+            }
+        }
+
+        .p-dropdown-trigger {
+            width: 1rem;
+            padding-right: 1.5rem;
+        }
+
+        &:hover {
+            border-color: #ced4da;
+        }
+
+        .p-dropdown-filter {
+            width: 100%;
+        }
+
+        .p-dropdown-items {
+            width: 100%;
+
+            .p-dropdown-item-group {
+                padding: 0;
+
+                &:not(:first-child) {
+                    padding-bottom: 0.5rem;
+                    margin-bottom: 0.5rem;
+                    border-bottom: 1px solid #ced4da;
+                }
+            }
+        }
+
+        .p-dropdown-panel {
+            width: 22rem;
+        }
+    }
+}

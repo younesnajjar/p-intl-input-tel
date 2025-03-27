@@ -1,0 +1,1 @@
+{"version":3,"file":"favorite-element-injector.directive.d.ts","sourceRoot":"","sources":["../../../../projects/p-intl-input-tel/src/directives/favorite-element-injector.directive.ts"],"names":[],"mappings":"AAAA,OAAO,EAAa,UAAU,EAAE,MAAM,EAAE,MAAM,eAAe,CAAC;;AAE9D,qBAIa,gCAAiC,YAAW,MAAM;IAC3D,OAAO,CAAC,EAAE,CAAC;gBAEC,EAAE,EAAE,UAAU;IAI1B,QAAQ;yCAPC,gCAAgC;2CAAhC,gCAAgC;CAY5C"}

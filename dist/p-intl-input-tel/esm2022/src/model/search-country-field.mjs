@@ -1,0 +1,8 @@
+export var SearchCountryField;
+(function (SearchCountryField) {
+    SearchCountryField["DIALCODE"] = "dialCode";
+    SearchCountryField["ISO2"] = "iso2";
+    SearchCountryField["NAME"] = "name";
+})(SearchCountryField || (SearchCountryField = {}));
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2VhcmNoLWNvdW50cnktZmllbGQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9wcm9qZWN0cy9wLWludGwtaW5wdXQtdGVsL3NyYy9tb2RlbC9zZWFyY2gtY291bnRyeS1maWVsZC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxNQUFNLENBQU4sSUFBWSxrQkFJWDtBQUpELFdBQVksa0JBQWtCO0lBQzFCLDJDQUFxQixDQUFBO0lBQ3JCLG1DQUFhLENBQUE7SUFDYixtQ0FBYSxDQUFBO0FBQ2pCLENBQUMsRUFKVyxrQkFBa0IsS0FBbEIsa0JBQWtCLFFBSTdCO0FBQUEsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBlbnVtIFNlYXJjaENvdW50cnlGaWVsZCB7XG4gICAgRElBTENPREUgPSAnZGlhbENvZGUnLFxuICAgIElTTzIgPSAnaXNvMicsXG4gICAgTkFNRSA9ICduYW1lJyxcbn07XG4iXX0=
